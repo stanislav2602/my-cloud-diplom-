@@ -65,7 +65,7 @@ const FilesPage = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/files/${fileId}/download/`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}files/${fileId}/download/`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -101,7 +101,7 @@ const FilesPage = () => {
   };
 
   const copyToClipboard = (token) => {
-    const url = `http://localhost:8000/api/files/public/${token}/`;
+    const url = `${process.env.REACT_APP_API_URL}files/public/${token}/`;
     navigator.clipboard.writeText(url);
     alert('Ссылка скопирована! Отправьте её кому угодно.');
   };
