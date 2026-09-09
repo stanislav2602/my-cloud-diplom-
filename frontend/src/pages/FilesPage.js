@@ -30,12 +30,48 @@ const FilesPage = () => {
     }
   };
 
-  const handleUpload = async () => {
-    if (!selectedFile) return;
-    await dispatch(uploadFile({ file: selectedFile, comment }));
-    setSelectedFile(null);
-    setComment('');
-    document.getElementById('fileInput').value = '';
+  const handleUpload = async (e) => {
+    e.preventDefault();
+
+    if (!selectedFile) {
+      alert('Выберите файл');
+      return;
+    }
+
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      alert('Ошибка авторизации. Войдите заново.');
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('comment', comment);
+
+      const response = await fetch(`${process.env.REACT_APP_API_URL}files/upload/`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Ошибка загрузки');
+      }
+
+      const result = await response.json();
+      dispatch(uploadFile.fulfilled(result));
+      setSelectedFile(null);
+      setComment('');
+      document.getElementById('fileInput').value = '';
+      alert('Файл успешно загружен!');
+    } catch (error) {
+      alert('Ошибка при загрузке файла: ' + error.message);
+      console.error(error);
+    }
   };
 
   const handleDelete = async (fileId) => {
@@ -149,6 +185,7 @@ const FilesPage = () => {
                   </div>
                   <div className="col" style={{ flex: 0.5 }}>
                     <button
+                      type="button"
                       className="btn btn-upload"
                       onClick={handleUpload}
                       disabled={!selectedFile || loading}
