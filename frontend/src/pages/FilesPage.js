@@ -164,6 +164,9 @@ const FilesPage = () => {
             {!isViewingOther && (
               <div style={{ marginBottom: '20px', padding: '15px', background: '#0d0d0d', borderRadius: '4px', border: '1px solid #2a2a2a' }}>
                 <h4 style={{ color: '#ff6b00' }}>Загрузить файл</h4>
+                <p style={{ color: '#888', fontSize: '14px', marginBottom: '10px' }}>
+                  Максимальный размер файла: <strong style={{ color: '#ff6b00' }}>100 МБ</strong>
+                </p>
                 <div className="row" style={{ alignItems: 'center' }}>
                   <div className="col" style={{ flex: 2 }}>
                     <input
