@@ -4,9 +4,22 @@
 
 ---
 
-## Демо
+## Скриншоты
 
-http://194.67.100.75/
+### Главная страница
+![Главная страница](screenshots/main.png)
+
+### Регистрация
+![Регистрация](screenshots/register.png)
+
+### Вход
+![Вход](screenshots/login.png)
+
+### Загрузка файла
+![Загрузка файла](screenshots/upload.png)
+
+### Админка
+![Админка](screenshots/admin.png)
 
 ---
 
@@ -165,8 +178,3 @@ bash
 cd frontend
 npm install
 npm start
-
- Тестовые данные
-Роль
-Администратор	admin2	Admin123!
-Пользователь	User	User123!
